@@ -6,6 +6,14 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+/**
+ * 백준 1922. 네트워크 연결
+ * 프림 알고리즘 복습하기 딱좋았어요 ~!
+ * 
+ * 메모리 : 44,788KB, 시간 : 364ms
+ * @author 세진
+ *
+ */
 public class Main {
 	
 	public static void main(String[] args) throws Exception {
