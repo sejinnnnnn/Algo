@@ -23,8 +23,6 @@ public class Main {
             if (trees[i] > maxTree) maxTree = trees[i];
         }
         
-        Arrays.sort(trees);
-        
         int left = 1;
         int right = maxTree;
         int mid = 0;
