@@ -1,55 +1,41 @@
-import java.util.Scanner;
-/**
- * <pre>
- * 백준 11053번 : 가장 긴 증가하는 부분 수열 문제풀이
- * </pre>
- * 
- * @author sejinnnnnn
- * @version ver.1.0
- * @since JDK1.8
- */
-public class Main {
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-   /**
-    * @param None
-    */
-	public static void main(String[] args) {
-      
-      Scanner s = new Scanner(System.in);
-      
-      int n = s.nextInt();
-      int arr[] = new int[n];
-      int dp[] = new int[n];
-      
-      for (int i = 0; i < n; i++) {
-         arr[i] = s.nextInt();
-         dp[i] = 1;
-      }
-      
-      int max = 0;
-      
-      for (int i = 0; i < n; i++) {
-         
-         for (int j = 0; j < i; j++) {
-            
-            if (arr[j] < arr[i] && dp[i] < dp[j] + 1) {
-               dp[i] = dp[j] + 1;
-               
-            }
-            
-         }
-         
-         if (dp[i] > max) {
-            max = dp[i];
-         }
-         
-      }
-      
-      System.out.println(max);
-      
-      
-      s.close();
-      
-   }
+public class Main {
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+		int[] arr = new int[n];
+		int[] dp = new int[n];
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		for (int i = 0; i < n; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+			dp[i] = 1;
+		}
+		
+		
+		
+		int max = Integer.MIN_VALUE;
+		
+//		dp[0] = 1;
+		
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (arr[j] < arr[i] && dp[j] + 1 > dp[i]) {
+					dp[i] = dp[j] + 1;
+				}
+			}
+			
+			max = Math.max(dp[i], max);
+		}
+		
+		System.out.println(max);
+		
+		
+	}
 
 }
