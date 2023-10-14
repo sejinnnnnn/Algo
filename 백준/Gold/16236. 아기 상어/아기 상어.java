@@ -2,6 +2,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/**
+ * 백준 16236. 아기 상어
+ * 삼성 코테 전 나에게 자신감 주기 위해서 (?) 풀었는데 한 번 틀렸다
+ * 내 생각에, BFS 탐색 순서를 위-왼-오-아래 순으로 탐색하면 행번호, 열번호가 가장 빠른 물고기 값일 줄 알았는데 아니었다 ..!
+ * 최소 거리 생선을 발견하면 그 거리에 해당하는 아직 Queue에 남아있는 값을 리스트에 넣고 행좌표, 열좌표 순으로 정렬했다 (Comparator 사용)
+ * 그랬더니 정답 나왔다 !!
+ * @author 세진
+ * 메모리 : 15,984 KB, 시간 : 136 ms
+ */
 public class Main {
 
     static final int[] dx = { -1, 0, 0, 1 };
