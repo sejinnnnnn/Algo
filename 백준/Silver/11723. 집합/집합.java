@@ -2,19 +2,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/**
+ * 백준 11723. 집합
+ * Java 내장클래스인 HashSet을 활용하여 각 명령어에 맞는 메소드 호출하였음
+ *
+ * 메모리 : 325,348 ms, 시간 : 1,412 ms
+ */
 public class Main {
 
-    static HashSet<Integer> set;
     static StringBuilder answer;
 
-    static final List<Integer> allList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+    static boolean[] isIn = new boolean[21];
 
     public static void main(String[] args) throws Exception {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         answer = new StringBuilder();
-
-        set = new HashSet<>();
 
         StringTokenizer st = null;
 
@@ -24,10 +27,10 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             switch (st.nextToken()) {
                 case "add":
-                    set.add(Integer.parseInt(st.nextToken()));
+                    isIn[Integer.parseInt(st.nextToken())] = true;
                     break;
                 case "remove":
-                    set.remove(Integer.parseInt(st.nextToken()));
+                    isIn[Integer.parseInt(st.nextToken())] = false;
                     break;
                 case "check":
                     check(Integer.parseInt(st.nextToken()));
@@ -36,11 +39,10 @@ public class Main {
                     toggle(Integer.parseInt(st.nextToken()));
                     break;
                 case "all":
-                    set.clear();
-                    set.addAll(allList);
+                    Arrays.fill(isIn, true);
                     break;
                 case "empty":
-                    set.clear();
+                    Arrays.fill(isIn, false);
                     break;
             }
         }
@@ -50,13 +52,13 @@ public class Main {
     }
 
     private static void check(int x) {
-        if (set.contains(x)) answer.append("1\n");
+        if (isIn[x]) answer.append("1\n");
         else answer.append("0\n");
     }
 
     private static void toggle(int x) {
-        if (set.contains(x)) set.remove(x);
-        else set.add(x);
+        if (isIn[x]) isIn[x] = false;
+        else isIn[x] = true;
     }
 
 }
