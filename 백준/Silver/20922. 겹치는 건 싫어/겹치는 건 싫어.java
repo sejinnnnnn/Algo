@@ -2,6 +2,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/**
+ * 백준 20922. 겹치는 건 싫어
+ * N 범위인 200000 까지의 배열을 만들어서 부분 수열에서의 해당 값이 몇 번 등장했는지 저장하기
+ * 투 포인터를 활용해서 연속 부분 수열을 만들었다
+ * 주어진 k보다 등장한 값이 커졌다면, k와 같아질 때 까지 left 포인터를 땡겨오기
+ * 조건에 맞는 수열을 만들었다면 최댓값을 갱신하기
+ *
+ * 메모리 : 37,368 KB, 시간 : 304 ms
+ */
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -43,7 +52,6 @@ public class Main {
         }
 
         System.out.println(maxLength);
-
 
     }
 
