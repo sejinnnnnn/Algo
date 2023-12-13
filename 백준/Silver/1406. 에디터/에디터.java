@@ -1,25 +1,25 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+/**
+ * 백준 1406. 에디터
+ * 처음에 LinkedList 하나를 사용해서 값을 중간에 추가해가는 방식으로 해결했지만 시간 초과
+ * 왼쪽 문자열과 오른쪽 문자열을 따로 저장하는 Stack을 두 개 사용해서 해결
+ *
+ * 메모리 : 115,592 KB, 시간 : 724 ms
+ */
 public class Main {
 
     static Stack<Character> left;
     static Stack<Character> right;
-    static int leftIdx;
-    static int rightIdx;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         left = new Stack<>();
         right = new Stack<>();
-
-        leftIdx = 0;
-        rightIdx = 0;
 
         char[] initValue = br.readLine().toCharArray();
         for (int i = 0; i < initValue.length; i++) {
