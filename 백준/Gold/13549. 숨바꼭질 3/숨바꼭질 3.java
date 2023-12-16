@@ -1,9 +1,16 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
+/**
+ * 백준 13549. 숨바꼭질 3
+ * BFS를 이용해서 해결 / 기존의 숨바꼭질과 다르게 순간이동이 0초이기 때문에 한 지점이 주어지면 그 점의 2의 배수는 다 같은 값을 가짐
+ * 갱신 후 그 점들을 다 queue에 넣으면 기존의 점과 엄청 거리가 먼 점들도 다 queue에 들어감 -> 시간 / 메모리 초과
+ * 순간이동 (*2) 값이 목표와 가까운 정도를 계산해서 그 값을 기준으로 가장 K와 가까운 값까지만 순간이동을 실행
+ *
+ * 메모리 : 19,008 KB, 시간 : 136 ms
+ */
 public class Main {
 
     public static void main(String[] args) throws Exception {
