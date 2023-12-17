@@ -1,6 +1,13 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * 백준 15989. 1, 2, 3 더하기 (4)
+ * 중복을 허용하지 않고 값을 계산해야 하기 때문에 -> 정렬된 값을 저장해야 함
+ * 따라서, 2차원 동적 테이블을 만들어 1로 끝나는 값, 2로 끝나는 값, 3으로 끝나는 값을 따로 구분해서 저장하였다
+ *
+ * 메모리 : 13,556 KB, 시간 : 124 ms
+ */
 public class Main {
 
     static int[][] dp;
