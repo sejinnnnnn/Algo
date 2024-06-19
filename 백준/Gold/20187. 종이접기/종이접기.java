@@ -1,137 +1,131 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		
-		// 입력 객체인 BufferedReader 선언 및 초기화
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		// 출력 문자열 객체인 StringBuilder 선언 및 초기화
-		StringBuilder answer = new StringBuilder();
-		
-		// 맨 첫 줄에 등장하는 k 입력받아 int로 parsing후 저장
-		int foldCount = Integer.parseInt(br.readLine());
-		
-		// 접는 방향 저장할 배열선언
-		char[] folds = new char[2 * foldCount];
-		
-		// 공백으로 문자열 구분
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		// 접는개수만큼 접는방향 저장
-		for (int i = 0; i < 2 * foldCount; i++) {
-			folds[i] = st.nextToken().charAt(0);
-		}
-		
-		char[] reverseFolds = new char[folds.length];
-		
-		for (int i = 0; i < folds.length; i++) {
-			reverseFolds[i] = folds[folds.length - 1 - i];
-		}
-		
-		
-		
-		// 어디 구멍뚫는지 저장할 숫자 저장
-		int where = Integer.parseInt(br.readLine());
-		
-		// 현재 종이 저장할 2차원 배열 선언 및 초기화
-		int[][] current = new int[][] { { where } };
-		
-		// 접는 순서만큼 반복
-		for (int i = 0; i < folds.length; i++) {
-			
-			// D라면
-			if (reverseFolds[i] == 'D') {
-				
-				int[][] next = new int[current.length * 2][current[0].length];
-				
-				for (int j = current.length; j < next.length; j++) {
-					for (int k = 0; k < next[0].length; k++) {
-						next[j][k] = current[j - current.length][k];
-						
-						if (next[j][k] - 2 < 0) next[next.length - 1 - j][k] = next[j][k] + 2;
-						else next[next.length - 1 - j][k] = next[j][k] - 2;
-						
-					}
-				}
-				
-				current = next;
-				
-				
-			} else if (reverseFolds[i] == 'U') { // U라면
-				
-				int[][] next = new int[current.length * 2][current[0].length];
-				
-				for (int j = 0; j < current.length; j++) {
-					for (int k = 0; k < next[0].length; k++) {
-						next[j][k] = current[j][k];
-						
-						next[next.length - 1 - j][k] = (next[j][k] + 2) % 4;
-						
-					}
-				}
-				
-				current = next;
-				
-			} else if (reverseFolds[i] == 'R') { // R이라면
-				
-				int[][] next = new int[current.length][current[0].length * 2];
-				
-				for (int j = 0; j < current.length; j++) {
-					for (int k = current[0].length; k < next[0].length; k++) {
-						next[j][k] = current[j][k - current[0].length];
-						
-						if (next[j][k] == 0) next[j][next[0].length - 1 - k] = 1;
-						else if (next[j][k] == 1) next[j][next[0].length - 1 - k] = 0;
-						else if (next[j][k] == 2) next[j][next[0].length - 1 - k] = 3;
-						else if (next[j][k] == 3) next[j][next[0].length - 1 - k] = 2;
-					}
-				}
-				
-				current = next;
-				
-			} else if (reverseFolds[i] == 'L') { // L이라면
-				
-				int[][] next = new int[current.length][current[0].length * 2];
-				
-				for (int j = 0; j < current.length; j++) {
-					for (int k = 0; k < current[0].length; k++) {
-						next[j][k] = current[j][k];
-						
-						if (next[j][k] == 0) next[j][current[0].length - 1 + k] = 1;
-						else if (next[j][k] == 1) next[j][current[0].length - 1 + k] = 0;
-						else if (next[j][k] == 2) next[j][current[0].length - 1 + k] = 3;
-						else if (next[j][k] == 3) next[j][current[0].length - 1 + k] = 2;
-					}
-				}
-				
-				current = next;
-				
-			}
-			
-//			for (int j = 0; j < current.length; j++) {
-//				System.out.println(Arrays.toString(current[j]));
-//			}
-//			
-//			System.out.println();
-			
-		}
-		
-		for (int i = 0; i < current.length; i++) {
-			for (int j = 0; j < current[0].length; j++) {
-				answer.append(String.format("%d ", current[i][j]));
-			}
-			answer.append("\n");
-		}
-		
-		System.out.println(answer.toString().trim());
-		
-	}
+    static int k;
+    static boolean[][] paper;
+    static char[] foldings;
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder answer = new StringBuilder();
+
+        k = Integer.parseInt(br.readLine());
+        foldings = new char[2 * k];
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < 2 * k; i++) {
+            foldings[2 * k - 1 - i] = st.nextToken().charAt(0);
+        }
+
+        paper = new boolean[2][2];
+
+        int hole = Integer.parseInt(br.readLine());
+
+        if (hole == 0) paper[0][0] = true;
+        else if (hole == 1) paper[0][1] = true;
+        else if (hole == 2) paper[1][0] = true;
+        else if (hole == 3) paper[1][1] = true;
+
+        for (int i = 0; i < 2 * k; i++) {
+            expandPaper(foldings[i]);
+
+//            for (int j = 0; j < paper.length; j++) {
+//                System.out.println(Arrays.toString(paper[j]));
+//            }
+        }
+
+        for (int i = 0; i < paper.length / 2; i++) {
+            for (int j = 0; j < paper.length / 2; j++) {
+                if (paper[i * 2][j * 2]) answer.append(0);
+                else if (paper[i * 2][j * 2 + 1]) answer.append(1);
+                else if (paper[i * 2 + 1][j * 2]) answer.append(2);
+                else if (paper[i * 2 + 1][j * 2 + 1]) answer.append(3);
+                if (j != paper.length / 2 - 1) answer.append(" ");
+            }
+            answer.append("\n");
+        }
+
+        System.out.println(answer.toString().trim());
+
+    }
+
+    private static void expandPaper(char direction) {
+
+        // 크기 늘린 2차원 배열 선언
+        boolean[][] newPaper = null;
+
+//        System.out.println(paper.length);
+
+        if (direction == 'D') {
+            newPaper = new boolean[paper.length * 2][paper.length];
+
+//            System.out.println(paper.length * 2);
+
+            // 원래 부분 채우기
+            for (int i = 0; i < paper.length; i++) {
+                newPaper[i + paper.length] = Arrays.copyOf(paper[i], paper[i].length);
+            }
+
+            // 새 부분 채우기 (절반 선 기준으로 행 선대칭)
+            for (int i = 0; i < paper.length; i++) {
+                newPaper[i] = Arrays.copyOf(paper[paper.length - 1 - i], paper[0].length);
+            }
+        } else if (direction == 'U') {
+            newPaper = new boolean[paper.length * 2][paper.length];
+
+            // 원래 부분 채우기
+            for (int i = 0; i < paper.length; i++) {
+                newPaper[i] = Arrays.copyOf(paper[i], paper[i].length);
+            }
+
+            // 새 부분 채우기 (절반 선 기준으로 행 선대칭)
+            for (int i = 0; i < paper.length; i++) {
+                newPaper[paper.length + i] = Arrays.copyOf(paper[paper.length - 1 - i], paper[0].length);
+            }
+
+        } else if (direction == 'R') {
+            newPaper = new boolean[paper.length][paper[0].length * 2];
+
+//            System.out.println(newPaper.length + " " + newPaper[0].length);
+
+            // 원래 부분 채우기
+            for (int i = 0; i < paper.length; i++) {
+                for (int j = 0; j < paper[0].length; j++) {
+//                    System.out.println(i + " " + j);
+                    newPaper[i][j + paper[0].length] = paper[i][j];
+                }
+            }
+
+            // 새 부분 채우기 (절반 선 기준으로 열 선대칭)
+            for (int i = 0; i < paper.length; i++) {
+                for (int j = 0; j < paper[0].length; j++) {
+                    newPaper[i][j] = paper[i][paper[0].length - 1 - j];
+                }
+            }
+            
+        } else if (direction == 'L') {
+            newPaper = new boolean[paper.length][paper[0].length * 2];
+
+            // 원래 부분 채우기
+            for (int i = 0; i < paper.length; i++) {
+                for (int j = 0; j < paper[0].length; j++) {
+                    newPaper[i][j] = paper[i][j];
+                }
+            }
+
+            // 새 부분 채우기 (절반 선 기준으로 열 선대칭)
+            for (int i = 0; i < paper.length; i++) {
+                for (int j = 0; j < paper[0].length; j++) {
+                    newPaper[i][j + paper[0].length] = paper[i][paper[0].length - 1 - j];
+                }
+            }
+        }
+
+        paper = newPaper;
+    }
 
 }
