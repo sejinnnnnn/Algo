@@ -13,14 +13,17 @@ public class Main {
         char[] str = br.readLine().toCharArray();
 
         long answer = 0;
+        long pow = 1;
 
         for (int i = 0; i < n; i++) {
-            long result = (long) ((str[i] - 'a' + 1) * Math.pow(r, i)) % M;
+            long result = ((str[i] - 'a' + 1) * pow) % M;
             answer += result;
             answer %= M;
+
+            pow = (pow * r) % M;
         }
 
-        System.out.println(answer);
+        System.out.println(answer % M);
 
     }
 
