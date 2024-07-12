@@ -12,32 +12,34 @@ public class Main {
             return;
         }
 
-        int[] twoCounts = new int[n + 1];
+//        int[] twoCounts = new int[n + 1];
         int[] fiveCounts = new int[n + 1];
 
-        int num = 4;
-        twoCounts[2] = 1;
-        while (num <= n) {
-            twoCounts[num] = twoCounts[num / 2] + 1;
-            num += 2;
-        }
+//        int num = 4;
+//        twoCounts[2] = 1;
+//        while (num <= n) {
+//            twoCounts[num] = twoCounts[num / 2] + 1;
+//            num += 2;
+//        }
 
-        num = 10;
+//        num = 10;
+        int num = 10;
         fiveCounts[5] = 1;
         while (num <= n) {
             fiveCounts[num] = fiveCounts[num / 5] + 1;
             num += 5;
         }
 
-        int twoSum = 0;
+//        int twoSum = 0;
         int fiveSum = 0;
 
         for (int i = 2; i <= n; i++) {
-            twoSum += twoCounts[i];
+//            twoSum += twoCounts[i];
             fiveSum += fiveCounts[i];
         }
 
-        System.out.println(Math.min(twoSum, fiveSum));
+//        System.out.println(Math.min(twoSum, fiveSum));
+        System.out.println(fiveSum);
 
     }
 
